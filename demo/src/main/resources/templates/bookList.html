@@ -1,0 +1,46 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>本の一覧表示</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<table>-->
+<!--  <tr>-->
+<!--    <th>ID</th>-->
+<!--    <th>タイトル</th>-->
+<!--    <th>値段</th>-->
+<!--  </tr>-->
+<!--  <tr th:each="data : ${bookList}">-->
+<!--    <td th:text="${data.id}"></td>-->
+<!--    <td th:text="${data.title}"></td>-->
+<!--    <td th:text="${data.price}"></td>-->
+<!--  </tr>-->
+<!--</table>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>本の一覧表示</title>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.2/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div th:replace="share::header"></div>
+<div class="container">
+  <div class="row">
+    <div th:each="book : ${bookList}" th:object="${book}" class="card col-4 me-3" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title" th:text="*{title}"></h5>
+        <p class="card-text" th:text="*{price} + 円"></p>
+        <a class="btn btn-success" th:href="@{/book-edit(id=*{id})}">編集</a>
+        <a class="btn btn-danger" th:href="@{/book-delete(id=*{id})}">削除</a>
+      </div>
+    </div>
+  </div>
+  <a class="btn btn-primary mt-3" th:href="@{/book-create}">新規追加</a>
+</div>
+</body>
+</html>
